@@ -1,7 +1,11 @@
 package com.blairetwi.unloadedgun;
 
-import net.minecraftforge.api.distmarker.Dist;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -44,8 +48,16 @@ public class UnloadedGun
 
     }
 
+    @SubscribeEvent
+    public void onEntityJoinLevel(EntityJoinLevelEvent event)
+    {
+        if (event.getEntity() instanceof Villager villager) {
+            villager.goalSelector.addGoal(1, new TemptGoal(villager, 1.2D, Ingredient.of(Items.CARROT_ON_A_STICK), false));
+        }
+    }
+
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientModEvents
     {
         @SubscribeEvent
