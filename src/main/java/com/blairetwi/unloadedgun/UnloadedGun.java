@@ -1,9 +1,8 @@
 package com.blairetwi.unloadedgun;
 
+import com.blairetwi.unloadedgun.item.ModItems;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.schedule.Activity;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -26,12 +25,10 @@ public class UnloadedGun
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        ModItems.register(modEventBus);
+
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
-
-        /*
-         TODO: ITEMS.register(modEventBus);
-        */
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -59,7 +56,7 @@ public class UnloadedGun
                  TODO: Implement Panicking Villager Logic
                  TODO: Change Item to GUN
                 */
-                villager.goalSelector.addGoal(1, new TemptGoal(villager, 1.2D, Ingredient.of(Items.CARROT), false));
+                villager.goalSelector.addGoal(1, new TemptGoal(villager, 1.2D, Ingredient.of(ModItems.UNLOADED_GUN.get()), false));
             }
 
         }
