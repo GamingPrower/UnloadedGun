@@ -1,9 +1,7 @@
 package com.blairetwi.unloadedgun;
 
-import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.entity.schedule.Activity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -52,7 +50,11 @@ public class UnloadedGun
     public void onEntityJoinLevel(EntityJoinLevelEvent event)
     {
         if (event.getEntity() instanceof Villager villager) {
-            villager.goalSelector.addGoal(1, new TemptGoal(villager, 1.2D, Ingredient.of(Items.CARROT_ON_A_STICK), false));
+
+            if (!event.getLevel().isClientSide()) {
+                villager.getBrain().setActiveActivityIfPossible(Activity.PANIC);
+            }
+
         }
     }
 
