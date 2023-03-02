@@ -54,7 +54,6 @@ public class UnloadedGun
             if (!event.getLevel().isClientSide()) {
                 /*
                  TODO: Implement Panicking Villager Logic
-                 TODO: Change Item to GUN
                 */
                 villager.goalSelector.addGoal(1, new TemptGoal(villager, 1.2D, Ingredient.of(ModItems.UNLOADED_GUN.get()), false));
             }
